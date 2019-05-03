@@ -1,4 +1,4 @@
-package study.javase.string.regex;
+package study.javase.refimpl.string.regex;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ public class RegExpression {
 
 	/**
 	 * 请统计一段 ASCII 文本中的单词个数。
+	 * （考察预设字符类型“\w”的使用）
 	 */
 	public int wordCount(String text) {
 		// TODO your code goes here
@@ -14,6 +15,7 @@ public class RegExpression {
 
 	/**
 	 * 请统计一段 ASCII 文本中连续数量大于等于 3 个的数字的出现次数。
+	 * （考察预设字符类型“\d”的使用）
 	 */
 	public int moreThan3DigitalsCount(String text) {
 		// TODO your code goes here
@@ -22,6 +24,7 @@ public class RegExpression {
 
 	/**
 	 * 请统计一段 ASCII 文本中不包含任何数字的单词数量。
+	 * （考察预设字符类型“\D”的使用）
 	 */
 	public int noneDigitalCount(String text) {
 		// TODO your code goes here
@@ -30,6 +33,7 @@ public class RegExpression {
 
 	/**
 	 * 请统计一段文本中有多少位置包含空白字符（同一个位置上的多个连续空白字符只算一个）
+	 * （考察预设字符类型“\s”的使用）
 	 */
 	public int whitespacePositions(String text) {
 		// TODO your code goes here
@@ -40,6 +44,7 @@ public class RegExpression {
 	 * 请找出一段文本中符合以下条件的子串：以单词“I”开头，后面是可选的“do”、“don't”或“do not”，
 	 * 再后面是“love”或“like”或“hate”，然后是 1 或多个其他单词，最后以句号或叹号结尾。
 	 * 例如“I love Java.”、“I don't like coffee!”。
+	 * （考察“|”操作符）
 	 */
 	public List<String> doILike(String text) {
 		// TODO your code goes here
@@ -49,6 +54,7 @@ public class RegExpression {
 	/**
 	 * 请找出一段文本中某个单词出现了 1 次以上的句子（句子以句号、叹号或问号结尾）。
 	 * 例如：“This program is running within another program.”
+	 * （考察反向引用）
 	 */
 	public List<String> duplicateWords(String text) {
 		// TODO your code goes here
@@ -57,6 +63,7 @@ public class RegExpression {
 
 	/**
 	 * 请找出单行单词数量小于等于 5 个的行。
+	 * （考察 ^ 和 $）
 	 */
 	public List<String> shortLine(String text) {
 		// TODO your code goes here

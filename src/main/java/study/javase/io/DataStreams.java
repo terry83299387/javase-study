@@ -2,7 +2,7 @@ package study.javase.io;
 
 import study.javase.assist.data.RandomPrimitiveValues;
 
-public class DataStreamBasic {
+public class DataStreams {
 
 	/**
 	 * {@link study.javase.assist.data.RandomPrimitiveValues} 实例提供了随机的基本类型值。

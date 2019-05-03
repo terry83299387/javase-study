@@ -1,4 +1,4 @@
-package study.javase.functional;
+package study.javase.refimpl.functional;
 
 import java.util.stream.DoubleStream;
 

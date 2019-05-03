@@ -77,33 +77,49 @@ public class Lambda {
 		return null;
 	}
 
-	
+	/**
+	 * 请使用 {@link java.util.Arrays#sort(Object[], java.util.Comparator)} 来对传入的数组 array
+	 * 进行排序。其中 Comparator 参数为一个 Lambda 表达式，在表达式中通过调用 T 的 compareTo() 方法实现
+	 * 元素的比较。
+	 */
+	public <T extends Comparable<T>> void sort(T[] array) {
+		// TODO your code goes here
+	}
 
 	/**
+	 * 请使用 {@link Lambda#each(Object[], Consumer)} 来打印一个 double 数组，
+	 * 打印操作使用 {@link System#out} 完成，每个数字需要打印到单独的行上。
+	 */
+	public void printEachNumber(double[] numbers) {
+		// TODO your code goes here
+	}
+
+	/**
+	 * 请使用 {@link Lambda#map(Object[], Function)} 将 int 数组转换为 Integer 数组，
+	 * 后者中的每一项都是前者的 Integer 包装对象。
+	 */
+	public Integer[] intsToIntegers(int[] ints) {
+		// TODO your code goes here
+		return null;
+	}
+
+	/**
+	 * options 是传入某个程序的参数，请使用 {@link Lambda#all(Object[], Predicate)}
+	 * 来对参数的格式进行检查，确保每个参数的格式都是正确的。
+	 * 该程序要求参数的格式必须满足以下要求：
 	 * 
+	 * (1) 以“-”开头，后面加上一个字母（大小写均可）。如“-a”、“-D”
+	 * (2) 以“--”开头，后面加上两个或以上字母（必须全小写）。如“--clean”、“--help”
+	 * 
+	 * 返回：如果参数格式都正确，返回 true；否则返回 false。
+	 */
+	public boolean validateOptions(String[] options) {
+		// TODO your code goes here
+		return false;
+	}
+
+	/**
+	 * TODO Lambda 表达式的编写（通过回调传入 Lambda 表达式）
 	 */
 
-//	public static <T extends Comparable<T>> void arraySort(T[] data) {
-//		Arrays.sort(data, (a, b) -> a.compareTo(b)); 
-//	}
-//
-//	public static <T> void each(T[] array, Consumer<T> operation) {
-//		for (T e : array) {
-//			operation.accept(e);
-//		}
-//	}
-
-//	public static void main(String[] args) {
-//		Integer[] data = new Integer[100];
-//		Arrays.setAll(data, (i) -> (int) (Math.random() * 1000));
-//
-//		each(data, (e) -> System.out.printf("%3d ", e));
-//		System.out.println();
-//
-//		arraySort(data);
-//
-//		each(data, (e) -> System.out.printf("%3d ", e));
-//		System.out.println();
-//		System.out.println();
-//	}
 }

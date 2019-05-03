@@ -37,4 +37,17 @@ public class RandomValueGenerator {
 
 		return chars;
 	}
+
+	public String randomString() {
+		return randomString(1, 100);
+	}
+
+	public String randomString(int maxLen) {
+		return randomString(1, maxLen);
+	}
+
+	public String randomString(int minLen, int maxLen) {
+		char[] chars = randomChars(minLen, maxLen);
+		return new String(chars);
+	}
 }

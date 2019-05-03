@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 
 import study.javase.assist.data.RandomPrimitiveValues;
 
-public class ByteStreamBasic {
+public class ByteStreams {
 
 	/**
 	 * bytes 是一个 byte 数组。
@@ -54,9 +54,9 @@ public class ByteStreamBasic {
 		tin.start();
 		tout.start();
 		try {
-			// 等待1分钟，等两个线程退出
+			// 等待 1 分钟，等两个线程退出
 			tin.join(60000L);
-			tout.join(60000L);
+			tout.join(10L);
 		}
 		catch (InterruptedException e) {
 			e.printStackTrace();
