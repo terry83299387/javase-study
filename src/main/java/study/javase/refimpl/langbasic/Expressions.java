@@ -2,7 +2,7 @@ package study.javase.refimpl.langbasic;
 
 import java.util.Arrays;
 
-public class Expressions {
+public class Expressions extends study.javase.langbasic.Expressions {
 
 	/**
 	 * 请按照要求完成此方法。
@@ -13,8 +13,11 @@ public class Expressions {
 	 * (5) 返回 c 的值
 	 */
 	public int addIntegers1() {
-		// TODO your code goes here
-		return 0;
+		int a = 15;
+		int b = 20;
+		int c;
+		c = a + b;
+		return c;
 	}
 
 	/**
@@ -24,8 +27,9 @@ public class Expressions {
 	 * (3) 返回 c 的值
 	 */
 	public int addIntegers2(int a, int b) {
-		// TODO your code goes here
-		return 0;
+		int c;
+		c = a + b;
+		return c;
 	}
 
 	/**
@@ -34,8 +38,8 @@ public class Expressions {
 	 * (2) 返回 a 的值
 	 */
 	public int addIntegers3(int a, int b) {
-		// TODO your code goes here
-		return 0;
+		a = a + b; // or a += b;
+		return a;
 	}
 
 	/**
@@ -44,8 +48,8 @@ public class Expressions {
 	 * 请将 a 的类型声明为占用内存最小的类型。
 	 */
 	public Object fixedValue1() {
-		// TODO your code goes here
-		return 0;
+		byte a = -123;
+		return a;
 	}
 
 	/**
@@ -53,8 +57,8 @@ public class Expressions {
 	 * 在保证不丢失值的情况下，请将 a 的类型声明为占用内存最小的类型。
 	 */
 	public Object fixedValue2() {
-		// TODO your code goes here
-		return 0;
+		short a = 32767; // or char a = 32767;
+		return a;
 	}
 
 	/**
@@ -181,6 +185,18 @@ public class Expressions {
 	}
 
 	/**
+	 * 请判断整数 n 是否满足以下条件：
+	 * (1) 其绝对值是一个 5 位数
+	 * (2) 能被 10 整除，或者能被 8 整除
+	 * (3) 不能被 100 整除
+	 * （考察关系运算、条件运算、取模）
+	 */
+	public boolean isWantedNumber(int n) {
+		// TODO your code goes here
+		return false;
+	}
+
+	/**
 	 * 替换加密是一种古老的加密方法。它是将字母表中的字母用表中的其他字母来替换，
 	 * 以此形成不可读的密文的过程。
 	 * 假设现在有密文 cipher，其中的每个字符 c 是由明文字符 t 和密码 p 采用
@@ -260,7 +276,93 @@ public class Expressions {
 	}
 
 	/**
-	 * TODO 隐式转换、强制转换、数组、自动拆箱装箱、varargs
+	 * {@link java.lang.System#out} 是一个 {@link java.io.PrintStream} 实例，它的
+	 * printf() 方法可以接受一个格式化字符串以及任意数量的额外参数。请仿照 printf() 写一个
+	 * 类似的方法，利用 {@link java.lang.System#out} 的 print() 方法将任意数量的 int
+	 * 参数打印出来，打印时用空格将每个参数隔开，参数全部打印完之后再额外打印一个空行。
+	 * 下面是一些调用的例子：
+	 * 
+	 * □ 无参数直接调用 printf()：只打印一个空行；
+	 * □ printf(1)：打印数字“1”和一个空行；
+	 * □ printf(1, 2)：打印“1 2”和一个空行；
+	 * □ printf(1, 2, -3)： 打印“1 2 -3”和一个空行；
+	 * □ ……
+	 * □ printf("abc")：「错误」非法调用！
+	 * □ printf(3.2)：「错误」非法调用！
+	 * 
+	 * （考察 varargs）
+	 */
+	public void printf(/* TODO your code goes here */) {
+		// TODO your code goes here
+	}
+
+	/**
+	 * 参数 a 和 b 都是整数，但 a 的类型是 int 的包装类型 Integer。
+	 * 请完成下面的方法，计算并返回 a 和 b 的和。
+	 * 注：如果因为某种原因导致计算无法完成，请返回 null。
+	 * （考察自动拆箱和装箱；以及 a 有可能为 null 的问题）
+	 */
+	public Integer addIntegers4(Integer a, int b) {
+		// TODO your code goes here
+		return 0;
+	}
+
+	/**
+	 * 请比较两个 Integer 类型的参数是否相等。
+	 * （考察 equals 方法、null 的问题）
+	 */
+	public boolean isEqual(Integer a, Integer b) {
+		// TODO your code goes here
+		return false;
+	}
+
+	/**
+	 * 某 2D 游戏中的地图使用一个二维的 int 数组来表示，数组中的每个元素代表一个单元格，
+	 * 元素的值为该单元格所在位置的地形。共有以下几种地形：1：草地、2：石块、3：树木、
+	 * 4：水。
+	 * 请初始化一个 20 × 20（20 行 20 列）的地图，并按照以下要求设置每个单元格的值：
+	 * （以下用 [x, y] 表示第 x 行第 y 列，用 [x1~x2, y1~y2] 表示第 x1 到第 x2
+	 * 行的第 y1 到第 y2 列。且 x、y、x1、x2、y1、y2 都是从 0 开始的）
+	 * 
+	 * (1) [2, 14]、[3, 5]、[6, 18]、[9, 11]、[12, 3]、[12, 19]、[17, 10]
+	 *     是石块；
+	 * (2) [1, 11~14]、[2, 11~13]、[3, 12~15]、[7~9, 1~5]、[14~15, 11~12]、
+	 *     [17~18, 1~3]、[19, 0~4] 是树木；
+	 * (3) [5~7, 10~12]、[12~14, 16~18]、[13, 1~3]、[13, 19]、[14, 19]、
+	 *     [18~19, 10~13] 是水；
+	 * (4) 其余全是草地。
+	 * 
+	 * （考察二维数组）
+	 */
+	public int[][] createMap() {
+		// TODO your code goes here
+		return null;
+	}
+
+/* 00 -----,-----,-----,-----
+ * 01 -----,-----,-3333,-----
+ * 02 -----,-----,-3332,-----
+ * 03 -----,2----,--333,3----
+ * 04 -----,-----,-----,-----
+ * 05 -----,-----,444--,-----
+ * 06 -----,-----,444--,---2-
+ * 07 -3333,3----,444--,-----
+ * 08 -3333,3----,-----,-----
+ * 09 -3333,3---,-2---,-----
+ * 10 -----,-----,-----,-----
+ * 11 -----,-----,-----,-----
+ * 12 ---2-,-----,-----,-4442
+ * 13 -444-,-----,-----,-4444
+ * 14 -----,-----,33---,-4444
+ * 15 -----,-----,33---,-----
+ * 16 -----,-----,-----,-----
+ * 17 -333-,-----,2----,-----
+ * 18 -333-,-----,4444-,-----
+ * 19 33333,-----,4444-,-----
+ */
+
+	/**
+	 * TODO 数组、自动拆箱装箱、varargs
 	 * 一元运算符：+ - ++ -- ~ !
 	 * 强制转换：(基本类型)、(引用类型)、(引用类型 & 接口类型...)
 	 * 乘法运算符：/ * %

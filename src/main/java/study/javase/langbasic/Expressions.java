@@ -1,7 +1,5 @@
 package study.javase.langbasic;
 
-import java.util.Arrays;
-
 public class Expressions {
 
 	/**
@@ -180,6 +178,17 @@ public class Expressions {
 	}
 
 	/**
+	 * 请判断整数 n 是否满足以下条件：
+	 * (1) 其绝对值是一个 5 位数
+	 * (2) 能被 10 整除，或者能被 8 整除
+	 * (3) 不能被 100 整除
+	 */
+	public boolean isWantedNumber(int n) {
+		// TODO your code goes here
+		return false;
+	}
+
+	/**
 	 * 替换加密是一种古老的加密方法。它是将字母表中的字母用表中的其他字母来替换，
 	 * 以此形成不可读的密文的过程。
 	 * 假设现在有密文 cipher，其中的每个字符 c 是由明文字符 t 和密码 p 采用
@@ -256,18 +265,61 @@ public class Expressions {
 	}
 
 	/**
-	 * TODO 隐式转换、强制转换、数组、自动拆箱装箱、varargs
-	 * 一元运算符：+ - ++ -- ~ !
-	 * 强制转换：(基本类型)、(引用类型)、(引用类型 & 接口类型...)
-	 * 乘法运算符：/ * %
-	 * 加法运算符：+ -
-	 * 移位运算符：<< >> >>>
-	 * 关系运算符：< > <= >= instanceof
-	 * 相等运算符：== !=
-	 * 位和逻辑运算符：& | ^
-	 * 条件运算符：&& || ?:
-	 * 赋值运算符：= *= += -= /= %= <<= >>= >>>= &= |= ^=
-	 * Lambda：->
-	 * 括号：()
+	 * {@link java.lang.System#out} 是一个 {@link java.io.PrintStream} 实例，它的
+	 * printf() 方法可以接受一个格式化字符串以及任意数量的额外参数。请仿照 printf() 写一个
+	 * 类似的方法，利用 {@link java.lang.System#out} 的 print() 方法将任意数量的 int
+	 * 参数打印出来，打印时用空格将每个参数隔开，参数全部打印完之后再额外打印一个空行。
+	 * 下面是一些调用的例子：
+	 * 
+	 * □ 无参数直接调用 printf()：只打印一个空行；
+	 * □ printf(1)：打印数字“1”和一个空行；
+	 * □ printf(1, 2)：打印“1 2”和一个空行；
+	 * □ printf(1, 2, -3)： 打印“1 2 -3”和一个空行；
+	 * □ ……
+	 * □ printf("abc")：「错误」非法调用！
+	 * □ printf(3.2)：「错误」非法调用！
+	 * 
 	 */
+	public void printf(/* TODO your code goes here */) {
+		// TODO your code goes here
+	}
+
+	/**
+	 * 参数 a 和 b 都是整数，但 a 的类型是 int 的包装类型 Integer。
+	 * 请完成下面的方法，计算并返回 a 和 b 的和。
+	 * 注：如果因为某种原因导致计算无法完成，请返回 null。
+	 */
+	public Integer addIntegers4(Integer a, int b) {
+		// TODO your code goes here
+		return 0;
+	}
+
+	/**
+	 * 请比较两个 Integer 类型的参数是否相等。
+	 */
+	public boolean isEqual(Integer a, Integer b) {
+		// TODO your code goes here
+		return false;
+	}
+
+	/**
+	 * 某 2D 游戏中的地图使用一个二维的 int 数组来表示，数组中的每个元素代表一个单元格，
+	 * 元素的值为该单元格所在位置的地形。共有以下几种地形：1：草地、2：石块、3：树木、
+	 * 4：水。
+	 * 请初始化一个 20 × 20（20 行 20 列）的地图，并按照以下要求设置每个单元格的值：
+	 * （以下用 [x, y] 表示第 x 行第 y 列，用 [x1~x2, y1~y2] 表示第 x1 到第 x2
+	 * 行的第 y1 到第 y2 列。且 x、y、x1、x2、y1、y2 都是从 0 开始的）
+	 * 
+	 * (1) [2, 14]、[3, 5]、[6, 18]、[9, 11]、[12, 3]、[12, 19]、[17, 10]
+	 *     是石块；
+	 * (2) [1, 11~14]、[2, 11~13]、[3, 12~15]、[7~9, 1~5]、[14~15, 11~12]、
+	 *     [17~18, 1~3]、[19, 0~4] 是树木；
+	 * (3) [5~7, 10~12]、[12~14, 16~18]、[13, 1~3]、[13, 19]、[14, 19]、
+	 *     [18~19, 10~13] 是水；
+	 * (4) 其余全是草地。
+	 */
+	public int[][] createMap() {
+		// TODO your code goes here
+		return null;
+	}
 }

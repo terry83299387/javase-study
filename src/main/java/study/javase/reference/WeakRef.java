@@ -1,13 +1,13 @@
-package study.javase.references;
+package study.javase.reference;
 
 /**
- * 请实现一个内存敏感型缓存，并实现基本的操作（存入、取出、清空）。
+ * 请实现一个“规范映射”型缓存，并实现基本的操作（存入、取出、清空）。
  * 
- * 内存敏感型缓存是指它所缓存的数据在内存充足时并不会积极地清理，而当内存不足时，
- * 会按照某种顺序（例如最近最少使用）来删除部分或全部缓存的数据。
+ * 规范映射（canonicalizing mapping）型缓存是指其中的数据如果还有其他地方正在使用，
+ * 则不回收；而如果某条数据已经没有任何地方在使用，则应该尽快被回收。
  * 
  */
-public class SoftRef<K, V> {
+public class WeakRef<K, V> {
 
 	/**
 	 * 将一个对象放入缓存。

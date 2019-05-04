@@ -1,4 +1,4 @@
-package study.javase.references;
+package study.javase.reference;
 
 /**
  * Document 是一个表示文档的类，一个文档对象中包括文档内容（content）和一个打印机（Printer 对象）。

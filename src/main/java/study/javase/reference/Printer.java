@@ -1,4 +1,4 @@
-package study.javase.references;
+package study.javase.reference;
 
 public interface Printer {
 
