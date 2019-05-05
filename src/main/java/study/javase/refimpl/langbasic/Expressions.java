@@ -66,8 +66,8 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 在保证不丢失值的情况下，请将 a 的类型声明为占用内存最小的类型。
 	 */
 	public Object fixedValue3() {
-		// TODO your code goes here
-		return 0;
+		float a = 3.14159F;
+		return a;
 	}
 
 	/**
@@ -76,8 +76,8 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 在保证不丢失值的情况下，请将 a 的类型声明为占用内存最小的类型。
 	 */
 	public Object fixedValue4() {
-		// TODO your code goes here
-		return 0;
+		double a = 3.141592654;
+		return a;
 	}
 
 	/**
@@ -86,8 +86,8 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * （考察 char 是无符号类型）
 	 */
 	public Object fixedValue5() {
-		// TODO your code goes here
-		return 0;
+		char a = 32768;
+		return a;
 	}
 
 	/**
@@ -95,8 +95,8 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 请将 a 声明为最适合的类型。
 	 */
 	public Object fixedValue6() {
-		// TODO your code goes here
-		return 0;
+		char a = '我';
+		return a;
 	}
 
 	/**
@@ -105,8 +105,8 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 在保证不丢失值的情况下，请将 a 的类型声明为占用内存最小的类型。
 	 */
 	public Object fixedValue7() {
-		// TODO your code goes here
-		return 0;
+		int a = 150_000_000;
+		return a;
 	}
 
 	/**
@@ -115,8 +115,8 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 在保证不丢失值的情况下，请将 a 的类型声明为占用内存最小的类型。
 	 */
 	public Object fixedValue8() {
-		// TODO your code goes here
-		return 0;
+		long a = 4_750_000_000_000_000L;
+		return a;
 	}
 
 	/**
@@ -125,8 +125,8 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 在保证不丢失值的情况下，请将 a 的类型声明为占用内存最小的类型。
 	 */
 	public Object fixedValue9() {
-		// TODO your code goes here
-		return 0;
+		float a = 8.798544E24F;
+		return a;
 	}
 
 	/**
@@ -135,16 +135,16 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 在保证不丢失值的情况下，请将 a 的类型声明为占用内存最小的类型。
 	 */
 	public Object fixedValue10() {
-		// TODO your code goes here
-		return 0;
+		double a = 1E80;
+		return a;
 	}
 
 	/**
 	 * 请声明一个基本类型的变量 a，将其赋值为 3 > 5 的结果，并返回 a。
 	 */
 	public Object fixedValue11() {
-		// TODO your code goes here
-		return 0;
+		boolean a = 3 > 5;
+		return a;
 	}
 
 	/**
@@ -171,8 +171,8 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 否则返回 false。
 	 */
 	public boolean isEqual2(double a, double b) {
-		// TODO your code goes here
-		return false;
+		double δ = a - b;
+		return δ <= 0.01 && δ >= -0.01;
 	}
 
 	/**
@@ -180,8 +180,8 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 注：为了防止结果溢出，应以 long 型来存储结果。
 	 */
 	public long square(int num) {
-		// TODO your code goes here
-		return 0;
+		long square = (long) num * (long) num;
+		return square;
 	}
 
 	/**
@@ -192,8 +192,10 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * （考察关系运算、条件运算、取模）
 	 */
 	public boolean isWantedNumber(int n) {
-		// TODO your code goes here
-		return false;
+		boolean first  = (n >= 10000 && n <= 99999) || (n >= -99999 && n <= -10000);
+		boolean second = (n % 10 == 0) || (n % 8 == 0);
+		boolean third  = n % 100 != 0;
+		return first && second && third;
 	}
 
 	/**
@@ -204,8 +206,14 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 现在请对密文 cipher 进行解密，还原出其明文并返回结果。
 	 */
 	public char[] decrypt(char[] cipher, short password) {
-		// TODO your code goes here
-		return null;
+		if (cipher == null) return null;
+
+		char[] clearText = new char[cipher.length];
+		for (int i = 0; i < cipher.length; i++) {
+			clearText[i] = (char) (cipher[i] - password);
+		}
+
+		return clearText;
 	}
 
 	/**
