@@ -224,17 +224,27 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * （考察位运算、数组、强制转换、有符号数的符号位）
 	 */
 	public byte[] intToBytes(int i) {
-		// TODO your code goes here
-		return null;
+		byte[] bytes = new byte[4];
+		bytes[0] = (byte) (i >>> 24);
+		bytes[1] = (byte) ((i >>> 16) & 0xFF);
+		bytes[2] = (byte) ((i >>> 8) & 0xFF);
+		bytes[3] = (byte) (i & 0xFF);
+		return bytes;
 	}
 
 	/**
-	 * 字节数组 b 是用 intToBytes(int) 方法从某个 int 整数中提取出来的，请将其
-	 * 还原为原来的整数。
+	 * 字节数组 bytes 是用 intToBytes(int) 方法从某个 int 整数中提取出来的，
+	 * 请将其还原为原来的整数。
 	 */
-	public int bytesToInt(byte[] b) {
-		// TODO your code goes here
-		return 0;
+	public int bytesToInt(byte[] bytes) {
+		if (bytes == null || bytes.length != 4) {
+			throw new IllegalArgumentException("数组必须包含 4 个元素。");
+		}
+
+		int i = ((bytes[0] & 0xFF) << 24) | ((bytes[1] & 0xFF) << 16)
+				| ((bytes[2] & 0xFF) << 8) | (bytes[3] & 0xFF);
+
+		return i;
 	}
 
 	/**
@@ -245,8 +255,8 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 的除法来进行，从而能够得到较为精确的结果。请按照此思路来计算 a 和 b 的商。
 	 */
 	public double integerDivision(int a, int b) {
-		// TODO your code goes here
-		return 0.0d;
+		double result = (double) a / (double) b;
+		return result;
 	}
 
 	/**
@@ -260,25 +270,38 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 那么，当需要忽略大小写，并且只希望找到第一个匹配时，可以将掩码的第 1、第 2 位设置为 1，
 	 * 即 1100 0000；如果需要忽略大小写，并且希望找出全部匹配时，可以指定掩码为 1000 0000；
 	 * 以此类推。
-	 * 请实现方法，将掩码 mask 中的每一位提取出来，放到一个 int 数组中，数组中的每一项仅最低
-	 * 位有效，其他位全为 0，并且数组的元素按照从掩码的最高位到最低位的顺序对应。
-	 * 例如对于前面例子中的 1100 0000，返回的数组 a 中，a[0] 为 1、a[1] 为 1、其他全为 0。
+	 * 
+	 * 掩码 1100 0000 包含两个掩码分量：1000 0000 和 0100 0000。对每个掩码分量因此进行
+	 * 按位或运算可得到掩码。如 1000 0000 | 0100 0000 可得到掩码 1100 0000。
+	 * 
+	 * 请实现方法，将掩码 mask 中的每一个掩码分量提取出来，放到一个 int 数组中，数组中的第
+	 * n 项是掩码 mask 的第 n 个掩码分量（从左往右）。例如前面的例子 1100 0000，返回的数组
+	 * a 中，a[0] 为 1000 0000、a[1] 为 0100 0000、其他全为 0。
+	 * 
 	 * 注意：Java 的 int 为 32 位。
 	 * （考察位运算、强制转换）
 	 */
-	public int[] intToBitMasks(int mask) {
-		// TODO your code goes here
-		return null;
+	public int[] intToMasks(int mask) {
+		int[] bitMasks = new int[32];
+		int metaMask = 0x8000_0000;
+
+		for (int i = 0; i < 32; i++) {
+			bitMasks[i] = metaMask & mask;
+			metaMask >>>= 1;
+		}
+
+		return bitMasks;
 	}
 
 	/**
 	 * 为了方便对 match 函数（见前一题中的例子）的调用，程序员 Code Farmer 决定写一个
-	 * 辅助函数，可以将任意数量的掩码（每个掩码为一个 int 类型的整数）拼合成一个整数（
-	 * 假设掩码的数量不会超过整数所包含的位数）。
+	 * 辅助函数，可以将任意数量的掩码分量（每个掩码分量为一个 int 类型的整数）组合成掩码
+	 * （假设掩码分量的数量不会超过整数所包含的位数）。
+	 * 
 	 * 注意：本题需要你来设计方法的参数列表，使得方法调用可以尽可能地方便。
 	 * （考察位运算、varargs）
 	 */
-	public int bitMasksToInt(/* TODO your code goes here */) {
+	public int masksToInt(/* TODO your code goes here */) {
 		// TODO your code goes here
 		return 0;
 	}

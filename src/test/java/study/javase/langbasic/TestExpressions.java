@@ -6,6 +6,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -248,6 +250,125 @@ public class TestExpressions {
 		}
 	}
 
+	@Test
+	public void testIntToBytes() {
+		int[] nums = {
+			0x00000000,           0x00000012,           0x00001234,           0x00123456,           0x12345678,
+		    0x40000000,           0x40000012,           0x40001234,           0x40123456,           0x40FFFFFF,
+		    0x7F000000,           0x7F000012,           0x7F001234,           0x7F123456,           0x7FFFFFFF,
+		    0x80000000,           0x80000012,           0x80001234,           0x80123456,           0x80FFFFFF,
+		    0xC0000000,           0xC0000012,           0xC0001234,           0xC0123456,           0xC0FFFFFF,
+		    0xF0000000,           0xF0000012,           0xF0001234,           0xF0123456,           0xF0FFFFFF,
+		    0x11111111,           0x22222222,           0x78888888,           0xFF000000,           0xFFFFFFFF,
+		};
+		final byte b00  = 0x00, b12 = 0x12, b34 = 0x34, b56 = 0x56, b78 = 0x78,
+				b40 = 0x40, b7f = 0x7F, b80 = (byte) 0x80, bc0 = (byte) 0xC0,
+				bf0 = (byte) 0xF0, b11 = 0x11, b22 = 0x22, b88 = (byte) 0x88,
+				bff = (byte) 0xFF;
+		byte[][] results = {
+			{b00, b00, b00, b00}, {b00, b00, b00, b12}, {b00, b00, b12, b34}, {b00, b12, b34, b56}, {b12, b34, b56, b78},
+			{b40, b00, b00, b00}, {b40, b00, b00, b12}, {b40, b00, b12, b34}, {b40, b12, b34, b56}, {b40, bff, bff, bff},
+			{b7f, b00, b00, b00}, {b7f, b00, b00, b12}, {b7f, b00, b12, b34}, {b7f, b12, b34, b56}, {b7f, bff, bff, bff},
+			{b80, b00, b00, b00}, {b80, b00, b00, b12}, {b80, b00, b12, b34}, {b80, b12, b34, b56}, {b80, bff, bff, bff},
+			{bc0, b00, b00, b00}, {bc0, b00, b00, b12}, {bc0, b00, b12, b34}, {bc0, b12, b34, b56}, {bc0, bff, bff, bff},
+			{bf0, b00, b00, b00}, {bf0, b00, b00, b12}, {bf0, b00, b12, b34}, {bf0, b12, b34, b56}, {bf0, bff, bff, bff},
+			{b11, b11, b11, b11}, {b22, b22, b22, b22}, {b78, b88, b88, b88}, {bff, b00, b00, b00}, {bff, bff, bff, bff},
+		};
+
+		int num;
+		byte[] expected, result;
+		for (int i = 0; i < nums.length; i++) {
+			num = nums[i];
+			expected = results[i];
+			result = expr.intToBytes(num);
+			assertArrayEquals(expected, result);
+		}
+	}
+
+	@Test
+	public void testBytesToInt() {
+		final byte b00  = 0x00, b12 = 0x12, b34 = 0x34, b56 = 0x56, b78 = 0x78,
+				b40 = 0x40, b7f = 0x7F, b80 = (byte) 0x80, bc0 = (byte) 0xC0,
+				bf0 = (byte) 0xF0, b11 = 0x11, b22 = 0x22, b88 = (byte) 0x88,
+				bff = (byte) 0xFF;
+		byte[][] bytess = {
+			{b00, b00, b00, b00}, {b00, b00, b00, b12}, {b00, b00, b12, b34}, {b00, b12, b34, b56}, {b12, b34, b56, b78},
+			{b40, b00, b00, b00}, {b40, b00, b00, b12}, {b40, b00, b12, b34}, {b40, b12, b34, b56}, {b40, bff, bff, bff},
+			{b7f, b00, b00, b00}, {b7f, b00, b00, b12}, {b7f, b00, b12, b34}, {b7f, b12, b34, b56}, {b7f, bff, bff, bff},
+			{b80, b00, b00, b00}, {b80, b00, b00, b12}, {b80, b00, b12, b34}, {b80, b12, b34, b56}, {b80, bff, bff, bff},
+			{bc0, b00, b00, b00}, {bc0, b00, b00, b12}, {bc0, b00, b12, b34}, {bc0, b12, b34, b56}, {bc0, bff, bff, bff},
+			{bf0, b00, b00, b00}, {bf0, b00, b00, b12}, {bf0, b00, b12, b34}, {bf0, b12, b34, b56}, {bf0, bff, bff, bff},
+			{b11, b11, b11, b11}, {b22, b22, b22, b22}, {b78, b88, b88, b88}, {bff, b00, b00, b00}, {bff, bff, bff, bff},
+		};
+
+		int[] results = {
+			0x00000000,           0x00000012,           0x00001234,           0x00123456,           0x12345678,
+		    0x40000000,           0x40000012,           0x40001234,           0x40123456,           0x40FFFFFF,
+		    0x7F000000,           0x7F000012,           0x7F001234,           0x7F123456,           0x7FFFFFFF,
+		    0x80000000,           0x80000012,           0x80001234,           0x80123456,           0x80FFFFFF,
+		    0xC0000000,           0xC0000012,           0xC0001234,           0xC0123456,           0xC0FFFFFF,
+		    0xF0000000,           0xF0000012,           0xF0001234,           0xF0123456,           0xF0FFFFFF,
+		    0x11111111,           0x22222222,           0x78888888,           0xFF000000,           0xFFFFFFFF,
+		};
+
+		byte[] bytes;
+		int expected, result;
+		for (int i = 0; i < results.length; i++) {
+			bytes = bytess[i];
+			expected = results[i];
+			result = expr.bytesToInt(bytes);
+			assertEquals(expected, result);
+		}
+	}
+
+	@Test
+	public void testIntegerDivision() {
+		int[] as = {
+			1,   2,  5,  -1,  -5,    5,   1,  -1,
+			333, 333,  -333,  -333,   11,   11,   -11,   -11,
+		};
+		int[] bs = {
+			1,   1,  2,  -1,   2,   -2,   0,   0,
+			11,  -11,   11,   -11,   333,  -333,   333,  -333,
+		};
+
+		int a, b;
+		double expected, result;
+		for (int i = 0; i < as.length; i++) {
+			a = as[i];
+			b = bs[i];
+			expected = (double) a / (double) b;
+			result = expr.integerDivision(a, b);
+			assertEquals(expected, result, 0.001);
+		}
+	}
+
+	@Test
+	public void testIntToMasks() {
+		int[] masks = {
+			0x00000000,
+			0x00000001, 0x00000002, 0x00000003, 0x00000004, 0x00000005,
+			0x00000006, 0x00000007, 0x00000008, 0x00000009, 0x0000000A,
+			0x0000000B, 0x0000000C, 0x0000000D, 0x0000000E, 0x0000000F,
+			0x00000010, 0x000000F0, 0x00001FF0, 0x00001FFF, 0x0000FFFF,
+			0x40000000, 0x40000001, 0x41111111, 0x4FEDCBA9, 0x4FFFFFFF,
+			0x70000000, 0x7100000F, 0x71234567, 0x7FEDCBA9, 0x7FFFFFFF,
+			0x80000000, 0x80000001, 0x8FFFFFFF, 0xA0000000, 0xAFFFFFFF,
+			0xC1111111, 0xC2222222, 0xC1234567, 0xC89ABCDE, 0xCCCCCCCC,
+			0xF0000000, 0xF147ADF0, 0xF000F000, 0xFFFFFFF0, 0xFFFFFFFF,
+		};
+
+		int[] expected, result;
+		for (int mask : masks) {
+//			System.out.println("------ " + Integer.toHexString(mask));
+			expected = intToMasks(mask);
+//			Arrays.stream(expected).mapToObj(Integer::toHexString).forEach(System.out::println);
+			result = expr.intToMasks(mask);
+			assertArrayEquals(expected, result);
+		}
+	}
+
+
 	// -----------------------------------
 
 	private char[] encrypt(char[] txt, short password) {
@@ -256,5 +377,17 @@ public class TestExpressions {
 			cipher[i] = (char) (txt[i] + password);
 		}
 		return cipher;
+	}
+
+	private int[] intToMasks(int mask) {
+		int[] bitMasks = new int[32];
+		int metaMask = 0x8000_0000;
+
+		for (int i = 0; i < 32; i++) {
+			bitMasks[i] = metaMask & mask;
+			metaMask >>>= 1;
+		}
+
+		return bitMasks;
 	}
 }
