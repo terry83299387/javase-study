@@ -301,30 +301,37 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 注意：本题需要你来设计方法的参数列表，使得方法调用可以尽可能地方便。
 	 * （考察位运算、varargs）
 	 */
-	public int masksToInt(/* TODO your code goes here */) {
-		// TODO your code goes here
-		return 0;
+	public int masksToInt(int... bitMasks) {
+		int mask = 0;
+		for (int bitMask : bitMasks) {
+			mask |= bitMask;
+		}
+		return mask;
 	}
 
 	/**
 	 * {@link java.lang.System#out} 是一个 {@link java.io.PrintStream} 实例，它的
 	 * printf() 方法可以接受一个格式化字符串以及任意数量的额外参数。请仿照 printf() 写一个
 	 * 类似的方法，利用 {@link java.lang.System#out} 的 print() 方法将任意数量的 int
-	 * 参数打印出来，打印时用空格将每个参数隔开，参数全部打印完之后再额外打印一个空行。
+	 * 参数打印出来，打印时用空格将每个参数隔开，参数全部打印完之后再额外打印一个换行符。
 	 * 下面是一些调用的例子：
 	 * 
 	 * □ 无参数直接调用 printf()：只打印一个空行；
-	 * □ printf(1)：打印数字“1”和一个空行；
-	 * □ printf(1, 2)：打印“1 2”和一个空行；
-	 * □ printf(1, 2, -3)： 打印“1 2 -3”和一个空行；
+	 * □ printf(1)：打印数字“1”和一个换行符（\n）（下同）；
+	 * □ printf(1, 2)：打印“1 2”；
+	 * □ printf(1, 2, -3)： 打印“1 2 -3”；
 	 * □ ……
 	 * □ printf("abc")：「错误」非法调用！
 	 * □ printf(3.2)：「错误」非法调用！
 	 * 
 	 * （考察 varargs）
 	 */
-	public void printf(/* TODO your code goes here */) {
-		// TODO your code goes here
+	public void printf(int... nums) {
+		for (int num : nums) {
+			System.out.print(num);
+			System.out.print(" ");
+		}
+		System.out.println();
 	}
 
 	/**

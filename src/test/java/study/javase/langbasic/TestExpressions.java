@@ -4,9 +4,10 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
-import java.util.Arrays;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -291,7 +292,7 @@ public class TestExpressions {
 				b40 = 0x40, b7f = 0x7F, b80 = (byte) 0x80, bc0 = (byte) 0xC0,
 				bf0 = (byte) 0xF0, b11 = 0x11, b22 = 0x22, b88 = (byte) 0x88,
 				bff = (byte) 0xFF;
-		byte[][] bytess = {
+		byte[][] args = {
 			{b00, b00, b00, b00}, {b00, b00, b00, b12}, {b00, b00, b12, b34}, {b00, b12, b34, b56}, {b12, b34, b56, b78},
 			{b40, b00, b00, b00}, {b40, b00, b00, b12}, {b40, b00, b12, b34}, {b40, b12, b34, b56}, {b40, bff, bff, bff},
 			{b7f, b00, b00, b00}, {b7f, b00, b00, b12}, {b7f, b00, b12, b34}, {b7f, b12, b34, b56}, {b7f, bff, bff, bff},
@@ -311,12 +312,12 @@ public class TestExpressions {
 		    0x11111111,           0x22222222,           0x78888888,           0xFF000000,           0xFFFFFFFF,
 		};
 
-		byte[] bytes;
+		byte[] arg;
 		int expected, result;
-		for (int i = 0; i < results.length; i++) {
-			bytes = bytess[i];
+		for (int i = 0; i < args.length; i++) {
+			arg = args[i];
 			expected = results[i];
-			result = expr.bytesToInt(bytes);
+			result = expr.bytesToInt(arg);
 			assertEquals(expected, result);
 		}
 	}
@@ -365,6 +366,92 @@ public class TestExpressions {
 //			Arrays.stream(expected).mapToObj(Integer::toHexString).forEach(System.out::println);
 			result = expr.intToMasks(mask);
 			assertArrayEquals(expected, result);
+		}
+	}
+
+	@Test
+	public void testMasksToInt() {
+		Method method = null;
+		for (Method m : expr.getClass().getDeclaredMethods()) {
+			if (m.getName().equals("masksToInt")
+					&& (m.getModifiers() & Modifier.PUBLIC) != 0
+					&& m.getReturnType().equals(int.class)
+					&& (m.isVarArgs() || (m.getParameterCount() == 1
+					&& m.getParameters()[0].getType().equals(int[].class)))) {
+				method = m;
+				break;
+			}
+		}
+		assertNotNull(method);
+
+		int[] b = new int[32];
+		for (int i = 0; i < 32; i++) {
+			b[i] = 1 << i;
+		}
+		int[][] args = {
+			{},
+			{b[0]},
+			{b[5]},
+			{b[0], b[1]},
+			{b[8], b[10]},
+			{b[21], b[15], b[31], b[10]},
+			{b[11], b[3], b[5], b[16]},
+			{b[8], b[12], b[17], b[30], b[28], b[15], b[6], b[21]},
+			{b[3], b[3]},
+		};
+		int[] results = {
+			0, b[0], b[5], b[0] | b[1], b[8] | b[10],
+			b[21] | b[15] | b[31] | b[10],
+			b[11] | b[3] | b[5] | b[16],
+			b[8] | b[12] | b[17] | b[30] | b[28] | b[15] | b[6] | b[21],
+			b[3] | b[3],
+		};
+
+		try {
+			int[] arg;
+			int expected, result;
+			for (int i = 0; i <  args.length; i++) {
+				arg = args[i];
+				expected = results[i];
+				result = (int) method.invoke(expr, arg);
+				assertEquals(expected, result);
+			}
+		}
+		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testPrintf() {
+		Method method = null;
+		for (Method m : expr.getClass().getDeclaredMethods()) {
+			if (m.getName().equals("printf")
+					&& (m.getModifiers() & Modifier.PUBLIC) != 0
+					&& m.getReturnType().equals(void.class)
+					&& m.isVarArgs()) {
+				method = m;
+				break;
+			}
+		}
+		assertNotNull(method);
+
+		int[][] args = {
+			{},
+			{0},
+			{-1},
+			{1, 2, 3},
+			{1, -1, 8, -3},
+			{1024, 859, -3586887, 153847698, -3957663, -2456, 13},
+		};
+
+		try {
+			for (int[] arg : args) {
+				method.invoke(expr, arg);
+			}
+		}
+		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
 		}
 	}
 
