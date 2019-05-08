@@ -4,6 +4,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -455,6 +456,77 @@ public class TestExpressions {
 		}
 	}
 
+	@Test
+	public void testAddIntegers4() {
+		Integer a;
+		int b;
+		Integer result;
+
+		a = null;
+		b = 0;
+		result = expr.addIntegers4(a, b);
+		assertNull(result);
+
+		a = 3;
+		result = expr.addIntegers4(a, b);
+		assertEquals(a, result);
+
+		a = 8756;
+		b = -3844;
+		result = expr.addIntegers4(a, b);
+		assertEquals((Integer) (a + b), result);
+	}
+
+	@Test
+	public void testIsEqual3() {
+		Integer[] as = {
+			null,   0,     0,    1,    -1,     1,   -1,   1389,  684576, -756830, -18653867,
+		};
+		Integer[] bs = {
+			 0,    null,   0,    1,    -1,    -1,    1,   83695, 684576, 756830,  -18653867,
+		};
+		boolean[] results = {
+			false, false, true, true, true, false, false, false,  true,  false,   true,
+		};
+
+		Integer a, b;
+		boolean expected, result;
+		for (int i = 0; i < as.length; i++) {
+			a = as[i];
+			b = bs[i];
+			expected = results[i];
+			result = expr.isEqual3(a, b);
+			assertEquals(expected, result);
+		}
+	}
+
+	@Test
+	public void testCreateMap() {
+		final int[][] expected = {
+			{1, 1, 1, 1, 1,  1, 1, 1, 1, 1,  1, 1, 1, 1, 1},
+			{1, 1, 1, 1, 1,  1, 1, 1, 1, 1,  1, 3, 3, 3, 3},
+			{1, 1, 1, 1, 1,  1, 1, 1, 1, 1,  1, 3, 3, 3, 2},
+			{1, 1, 1, 1, 1,  2, 1, 1, 1, 1,  1, 3, 3, 3, 3},
+			{1, 1, 1, 1, 1,  1, 1, 1, 1, 1,  1, 1, 1, 1, 1},
+
+			{1, 1, 1, 1, 1,  1, 1, 1, 1, 1,  4, 4, 4, 1, 1},
+			{1, 1, 1, 1, 1,  1, 1, 1, 2, 1,  4, 4, 4, 1, 1},
+			{1, 3, 3, 3, 3,  3, 1, 1, 1, 2,  4, 4, 4, 1, 1},
+			{1, 3, 3, 3, 3,  3, 1, 1, 1, 1,  1, 1, 1, 1, 1},
+			{1, 3, 3, 3, 3,  3, 1, 1, 1, 1,  1, 2, 1, 1, 1},
+
+			{1, 1, 1, 1, 1,  1, 1, 1, 1, 1,  1, 1, 1, 1, 1},
+			{1, 1, 1, 1, 1,  1, 1, 1, 1, 1,  1, 1, 1, 1, 1},
+			{1, 1, 1, 2, 1,  1, 4, 4, 4, 2,  1, 1, 1, 1, 1},
+			{1, 4, 4, 4, 4,  4, 4, 4, 4, 1,  1, 1, 1, 1, 1},
+			{1, 1, 1, 1, 1,  1, 4, 4, 4, 1,  1, 3, 3, 1, 1},
+		};
+		int[][] map = expr.createMap();
+
+		for (int i = 0; i < expected.length; i++) {
+			assertArrayEquals(expected[i], map[i]);
+		}
+	}
 
 	// -----------------------------------
 
