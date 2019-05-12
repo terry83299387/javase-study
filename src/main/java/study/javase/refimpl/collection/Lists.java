@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import study.javase.collection.beans.Employee;
 
-public class Lists {
+public class Lists extends study.javase.collection.Lists {
 
 	/**
 	 * file 是一个存放手机号的文件，每行一个号码，每个号码是一个 11 位的数字，例如 138xxxxxxxx。

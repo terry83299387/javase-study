@@ -156,8 +156,7 @@ public class Expressions extends study.javase.langbasic.Expressions {
 	 * 请比较 a 和 b 的值是否相等，并返回比较结果。
 	 */
 	public boolean isEqual(double a, double b) {
-		// TODO your code goes here
-		return false;
+		return a == b;
 	}
 
 	/**

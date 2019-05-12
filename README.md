@@ -1,4 +1,4 @@
-# javase-study：一个寓教于乐的 Java SE 自我学习和检查工具
+# javase-study：Java Standard Edition（Java SE）学习工具
 
 ## 项目简介
 
@@ -307,3 +307,8 @@ public long square(int num) {
 [Terry Qiao](https://github.com/terry83299387)
 
 目前仅有我一人，期待您的参与。
+
+## 版权声明
+
+本项目遵守 Apache License 2.0。
+
