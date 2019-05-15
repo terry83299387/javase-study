@@ -1,55 +1,18 @@
 package study.javase.refimpl.collection.beans;
 
+import study.javase.collection.beans.Position;
+
 /**
  * 请实现 Employee 类，该类将主要作为集合中的元素，因此需要支持
  * 集合的查找、比较（见 {@link #equals(Object)} 方法）。
  */
-public class Employee {
+public class Employee extends study.javase.collection.beans.Employee {
 
-	private String name;
-	private double salary;
-	private Position position;
-	private String phone;
-	private String email;
-
-	public String getName() {
-		return name;
+	public Employee() {
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public double getSalary() {
-		return salary;
-	}
-
-	public void setSalary(double salary) {
-		this.salary = salary;
-	}
-
-	public Position getPosition() {
-		return position;
-	}
-
-	public void setPosition(Position position) {
-		this.position = position;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public Employee(String name, double salary, Position position, String phone, String email) {
+		super(name, salary, position, phone, email);
 	}
 
 	/**

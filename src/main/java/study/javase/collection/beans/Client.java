@@ -15,9 +15,9 @@ public class Client {
 	}
 
 	public Client(int queueNumber, ClientType clientType, String name) {
-		this.queueNumber = queueNumber;
-		this.clientType = clientType;
-		this.name = name;
+		setQueueNumber(queueNumber);
+		setClientType(clientType);
+		setName(name);
 	}
 
 	public int getQueueNumber() {

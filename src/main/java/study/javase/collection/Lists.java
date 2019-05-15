@@ -49,6 +49,7 @@ public class Lists {
 
 	/**
 	 * 请从职员列表中移除「所有」与指定 Employee 相等的职员。
+	 * 注：本题和后面的一些题目需要先完成 Employee 类中的 equals 和 hashCode 方法。
 	 */
 	public void removeEmployees(List<Employee> employees, Employee employee) {
 		// TODO your code goes here
@@ -57,7 +58,7 @@ public class Lists {
 	/**
 	 * employees 是职员列表，请从中移除所有满足 tester 条件的职员。
 	 */
-	public void removeEmployees(List<Employee> employees, Predicate<Employee> tester) {
+	public void removeEmployees2(List<Employee> employees, Predicate<Employee> tester) {
 		// TODO your code goes here
 	}
 
@@ -88,7 +89,7 @@ public class Lists {
 	}
 
 	/**
-	 * list1 与 list2 是两个职员列表，请将 list2 添加到 list1 中。
+	 * list1 与 list2 是两个职员列表，请将 list2 添加到 list1 的最后（list2 合并到 list1）。
 	 * （并集）
 	 */
 	public void union(List<Employee> list1, List<Employee> list2) {

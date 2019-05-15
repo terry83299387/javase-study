@@ -23,6 +23,7 @@ public class Lists extends study.javase.collection.Lists {
 	 * 由于后面要频繁查找号码，因此接下来需要将这些号码按照自然顺序升序排序，从而使得后续可以用
 	 * 二分法来加速查找。
 	 * 注：不需要手动实现排序操作，可以借助 {@link java.util.Collections#sort(List)} 等工具。
+	 * （考察 ArrayList 的随机访问具有 O(1) 的性能）
 	 */
 	public List<String> readAndSortPhoneNumbers(String file) {
 		// TODO your code goes here
@@ -41,7 +42,6 @@ public class Lists extends study.javase.collection.Lists {
 	 * 
 	 * 根据以上三点，为了提高操作效率，需要选择合适的 List 实现来存放号码，并且要对号码进行排序，
 	 * （排序时仅需按照前 3 位来排序即可）。
-	 * 
 	 * （考察 ArrayList 和 LinkedList 的区别）
 	 */
 	public List<String> readPhoneNumbers2(String file) {
@@ -51,6 +51,8 @@ public class Lists extends study.javase.collection.Lists {
 
 	/**
 	 * 请从职员列表中移除「所有」与指定 Employee 相等的职员。
+	 * 注：本题和后面的一些题目需要先完成 Employee 类中的 equals 和 hashCode 方法。
+	 * （考察 removeAll() 方法的使用，以及 Employee.equals() 方法的实现）
 	 */
 	public void removeEmployees(List<Employee> employees, Employee employee) {
 		// TODO your code goes here
@@ -60,7 +62,7 @@ public class Lists extends study.javase.collection.Lists {
 	 * employees 是职员列表，请从中移除所有满足 tester 条件的职员。
 	 * （考察 List.removeIf(Predicate) 方法的使用）
 	 */
-	public void removeEmployees(List<Employee> employees, Predicate<Employee> tester) {
+	public void removeEmployees2(List<Employee> employees, Predicate<Employee> tester) {
 		// TODO your code goes here
 	}
 
@@ -95,7 +97,7 @@ public class Lists extends study.javase.collection.Lists {
 	}
 
 	/**
-	 * list1 与 list2 是两个职员列表，请将 list2 添加到 list1 中。
+	 * list1 与 list2 是两个职员列表，请将 list2 添加到 list1 的最后（list2 合并到 list1）。
 	 * （并集）
 	 */
 	public void union(List<Employee> list1, List<Employee> list2) {

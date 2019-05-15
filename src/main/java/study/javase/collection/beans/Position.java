@@ -5,8 +5,7 @@ package study.javase.collection.beans;
  */
 public enum Position {
 
-	MANAGER("manager"), BACKEND_ENGINEER("back-end engineer"), FRONTEND_ENGINEER("front-end engineer"),
-	QA("QA"), UI("UI");
+	MNG("manager"), BE("back-end engineer"), FE("front-end engineer"), QA("QA"), UI("UI");
 
 	private String name;
 	private Position(String name) {

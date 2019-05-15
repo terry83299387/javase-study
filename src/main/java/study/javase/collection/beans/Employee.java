@@ -12,6 +12,17 @@ public class Employee {
 	private String phone;
 	private String email;
 
+	public Employee() {
+	}
+
+	public Employee(String name, double salary, Position position, String phone, String email) {
+		setName(name);
+		setSalary(salary);
+		setPosition(position);
+		setPhone(phone);
+		setEmail(email);
+	}
+
 	public String getName() {
 		return name;
 	}
