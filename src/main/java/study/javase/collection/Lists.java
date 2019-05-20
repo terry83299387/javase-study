@@ -89,7 +89,8 @@ public class Lists {
 	}
 
 	/**
-	 * list1 与 list2 是两个职员列表，请将 list2 添加到 list1 的最后（list2 合并到 list1）。
+	 * list1 与 list2 是两个职员列表，请将 list2 添加到 list1 的最后
+	 * （即将 list2 合并到 list1）。
 	 * （并集）
 	 */
 	public void union(List<Employee> list1, List<Employee> list2) {
@@ -97,16 +98,17 @@ public class Lists {
 	}
 
 	/**
-	 * list1 与 list2 是两个职员列表，请从 list1 中找出那些同时存在于 list2 的职员。
+	 * list1 与 list2 是两个职员列表，请从 list1 中移除那些不存在于 list2 的职员。
+	 * （即仅保留 list1 中同时也存在于 list2 中那些的职员）
 	 * （交集）
 	 */
-	public List<Employee> intersection(List<Employee> list1, List<Employee> list2) {
+	public void intersection(List<Employee> list1, List<Employee> list2) {
 		// TODO your code goes here
-		return null;
 	}
 
 	/**
 	 * list1 与 list2 是两个职员列表，请从 lis1 中移除所有存在于 list2 中的职员。
+	 * （即仅保留 list1 中那些不存在于 list2 中的职员）
 	 * （补集）
 	 */
 	public void supplementary(List<Employee> list1, List<Employee> list2) {

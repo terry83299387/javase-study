@@ -1,7 +1,11 @@
 package study.javase.collection;
 
 import static org.junit.Assert.assertTrue;
-import static study.javase.collection.beans.Position.*;
+import static study.javase.collection.beans.Position.BE;
+import static study.javase.collection.beans.Position.FE;
+import static study.javase.collection.beans.Position.MNG;
+import static study.javase.collection.beans.Position.QA;
+import static study.javase.collection.beans.Position.UI;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +18,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -25,21 +28,15 @@ import study.javase.collection.beans.Position;
 @RunWith(SkippedRunner.class)
 public class TestLists {
 
-	protected static String tempPhoneFileName;
-	protected static List<String> phoneNumbers;
-	protected static List<Employee> employees;
-
+	protected String tempPhoneFileName;
+	protected List<String> phoneNumbers;
+	protected List<Employee> employees;
 	protected Lists lists;
 
-	@BeforeClass
-	public static void prepare() throws IOException {
-		generateRandomPhoneNumbers();
-		generateEmployees();
-	}
-
 	@Before
-	public void init() {
+	public void init() throws IOException {
 		lists = new Lists();
+		prepareData();
 	}
 
 	@Test
@@ -188,18 +185,52 @@ public class TestLists {
 		lists.union(list1, list2);
 		boolean equal = identityEquals(tempList, list1);
 		assertTrue(equal);
-		equal = identityEquals(tempList.subList(pos, tempList.size()), list2);
+	}
+
+	@Test
+	public void testIntersection() {
+		List<Employee> expected = new ArrayList<>(employees);
+		Collections.shuffle(expected);
+		int pos = (int) (expected.size() * (Math.random() * 0.6 + 0.2));
+		List<Employee> list1 = new ArrayList<>(expected);
+		List<Employee> list2 = expected.subList(pos, expected.size());
+
+		expected.retainAll(list2);
+		lists.intersection(list1, list2);
+
+		boolean equal = identityEquals(expected, list1);
+		assertTrue(equal);
+	}
+
+	@Test
+	public void testSupplementary() {
+		List<Employee> expected = new ArrayList<>(employees);
+		Collections.shuffle(expected);
+		int pos = (int) (expected.size() * (Math.random() * 0.6 + 0.2));
+		List<Employee> list1 = new ArrayList<>(expected);
+		List<Employee> list2 = expected.subList(pos, expected.size());
+
+		expected.removeAll(list2);
+		lists.supplementary(list1, list2);
+
+		boolean equal = identityEquals(expected, list1);
 		assertTrue(equal);
 	}
 	
 
 	// -----------------------------------
 
+	protected void prepareData() throws IOException {
+		if (phoneNumbers == null) {
+			generateRandomPhoneNumbers();
+		}
+		generateEmployees();
+	}
+
 	// 随机生成 3000 ~ 8000 个电话号码
-	protected static void generateRandomPhoneNumbers() throws IOException {
+	protected void generateRandomPhoneNumbers() throws IOException {
 		File tempFile = File.createTempFile("phone", null);
 		tempFile.deleteOnExit();
-		tempFile.setReadOnly();
 		tempPhoneFileName = tempFile.getAbsolutePath();
 
 		int count = (int) (Math.random() * 5000) + 3000;
@@ -211,12 +242,13 @@ public class TestLists {
 				tempPN.add(number);
 			}
 		}
+		tempFile.setReadOnly();
 		Collections.sort(tempPN);
 		phoneNumbers = Collections.unmodifiableList(tempPN);
 	}
 
 	// 生成 Employee 列表
-	protected static void generateEmployees() {
+	protected void generateEmployees() {
 		// 注释中的数字相同代表名字相同
 		String[] names = {
 			"李强"/*1*/,    "李强"/*1*/,  "李强"/*1*/,     "张杰"/*2*/,   "张杰"/*2*/,
@@ -257,14 +289,19 @@ public class TestLists {
 		List<Employee> tempEmployees = new ArrayList<>();
 		Employee employee;
 		for (int i = 0; i < names.length; i++) {
-			employee = new Employee(names[i], salaries[i], positions[i], phones[i],
-					emails[i] == null || emails[i].length() == 0 ? emails[i] : (emails[i] + "@daxing.com"));
+			employee = createEmployee(names[i], salaries[i], positions[i], phones[i], emails[i]);
 			tempEmployees.add(employee);
 		}
 		employees = Collections.unmodifiableList(tempEmployees);
 	}
 
-	protected static String randomPhoneNumber() {
+	protected Employee createEmployee(String name, double salary, Position position, String phone, String email) {
+		Employee employee = new Employee(name, salary, position, phone,
+				email == null || email.length() == 0 ? email : (email + "@daxing.com"));
+		return employee;
+	}
+
+	protected String randomPhoneNumber() {
 		char[] number = new char[11];
 		number[0] = '1';
 		number[1] = (char) (Math.random() * 6 + '3');
