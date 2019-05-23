@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 import study.javase.collection.beans.Client;
 
-public class Queues {
+public class Queues extends study.javase.collection.Queues {
 
 	/**
 	 * 请创建并返回一个 Queue<String> 对象，其中的元素是排队等待服务的客户

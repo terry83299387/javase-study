@@ -27,13 +27,32 @@ public class Employee extends study.javase.collection.beans.Employee {
 	 */
 	@Override
 	public boolean equals(Object o) {
-		// TODO your code goes here
-		return super.equals(o);
+		if (this == o) return true;
+
+		if (o instanceof Employee) {
+			// TODO
+			return false;
+		}
+
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
 		// TODO your code goes here
 		return super.hashCode();
+	}
+
+	/**
+	 * (1) 如果两个 Employee 的 email 都存在（不为 null，也不为空字符串），则根据 email 比较大小；
+	 * (2) 如果有且只有一个 email 存在，那么存在 email 的 Employee 较大；
+	 * (3) 如果两个对象的 email 都不存在，则根据与 email 相同的规则来比较 phone 的大小；
+	 * (4) 如果 phone 也都不存在，则先根据 name 比较大小；如果 name 也相等，则根据 position 来比较大小。
+	 * （name 和 position 必然存在，position 的大小以它们的索引值大小来比较）
+	 */
+	@Override
+	public int compareTo(study.javase.collection.beans.Employee e) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

@@ -297,7 +297,7 @@ public class TestLists {
 
 	protected Employee createEmployee(String name, double salary, Position position, String phone, String email) {
 		Employee employee = new Employee(name, salary, position, phone,
-				email == null || email.length() == 0 ? email : (email + "@daxing.com"));
+				email == null || email.length() == 0 ? email : (email + "@myemail.com"));
 		return employee;
 	}
 

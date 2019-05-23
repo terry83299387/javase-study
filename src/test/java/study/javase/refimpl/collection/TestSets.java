@@ -7,11 +7,11 @@ import org.junit.Before;
 import study.javase.collection.beans.Position;
 import study.javase.refimpl.collection.beans.Employee;
 
-public class TestLists extends study.javase.collection.TestLists {
+public class TestSets extends study.javase.collection.TestSets {
 
 	@Before
 	public void init() throws IOException {
-		lists = new Lists();
+		sets = new Sets();
 		prepareData();
 	}
 

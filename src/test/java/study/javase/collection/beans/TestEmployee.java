@@ -1,7 +1,8 @@
-package study.javase.collection;
+package study.javase.collection.beans;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,8 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import study.javase.assist.SkippedRunner;
-import study.javase.collection.beans.Employee;
-import study.javase.collection.beans.Position;
 
 @RunWith(SkippedRunner.class)
 public class TestEmployee {
@@ -88,6 +87,28 @@ public class TestEmployee {
 			assertEquals(hash1, hash2);
 		}
 	}
+
+	@Test
+	public void testCompareTo() {
+		assertTrue(employees.get(0).compareTo(employees.get(1)) < 0);
+		assertTrue(employees.get(1).compareTo(employees.get(0)) > 0);
+		assertTrue(employees.get(0).compareTo(employees.get(2)) == 0);
+		assertTrue(employees.get(0).compareTo(employees.get(3)) > 0);
+		assertTrue(employees.get(3).compareTo(employees.get(0)) < 0);
+		assertTrue(employees.get(3).compareTo(employees.get(4)) == 0);
+		assertTrue(employees.get(4).compareTo(employees.get(5)) == 0);
+		assertTrue(employees.get(5).compareTo(employees.get(6)) > 0);
+		assertTrue(employees.get(6).compareTo(employees.get(5)) < 0);
+		assertTrue(employees.get(6).compareTo(employees.get(7)) > 0);
+		assertTrue(employees.get(7).compareTo(employees.get(6)) < 0);
+		assertTrue(employees.get(7).compareTo(employees.get(8)) == 0);
+		assertTrue(employees.get(7).compareTo(employees.get(9)) > 0);
+		assertTrue(employees.get(9).compareTo(employees.get(7)) < 0);
+		assertTrue(employees.get(7).compareTo(employees.get(10)) > 0);
+		assertTrue(employees.get(10).compareTo(employees.get(7)) < 0);
+	}
+
+	// -----------------------------------
 
 	protected Employee createEmployee(String name, double salary, Position position, String phone, String email) {
 		return new Employee(name, salary, position, phone, email);
