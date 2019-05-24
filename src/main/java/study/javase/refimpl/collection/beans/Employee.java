@@ -29,18 +29,43 @@ public class Employee extends study.javase.collection.beans.Employee {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 
-		if (o instanceof Employee) {
-			// TODO
+		if (!(o instanceof study.javase.collection.beans.Employee)) {
 			return false;
 		}
 
-		return false;
+		study.javase.collection.beans.Employee e2 = (study.javase.collection.beans.Employee) o;
+		String email1 = this.getEmail(), email2 = e2.getEmail();
+		if (email1 != null && email1.length() != 0) {
+			return email1.equals(email2);
+		}
+		else if (email2 != null && email2.length() != 0) {
+			return false;
+		}
+
+		String phone1 = this.getPhone(), phone2 = e2.getPhone();
+		if (phone1 != null && phone1.length() != 0) {
+			return phone1.equals(phone2);
+		}
+		else if (phone2 != null && phone2.length() != 0) {
+			return false;
+		}
+
+		return this.getPosition() == e2.getPosition() && this.getName().equals(e2.getName());
 	}
 
 	@Override
 	public int hashCode() {
-		// TODO your code goes here
-		return super.hashCode();
+		String email = this.getEmail();
+		if (email != null && email.length() != 0) {
+			return email.hashCode();
+		}
+
+		String phone = this.getPhone();
+		if (phone != null && phone.length() != 0) {
+			return phone.hashCode();
+		}
+
+		return this.getName().hashCode() + this.getPosition().hashCode();
 	}
 
 	/**
@@ -52,7 +77,36 @@ public class Employee extends study.javase.collection.beans.Employee {
 	 */
 	@Override
 	public int compareTo(study.javase.collection.beans.Employee e) {
-		// TODO Auto-generated method stub
-		return 0;
+		String email1 = this.getEmail(), email2 = e.getEmail();
+		if (email1 != null && email1.length() != 0) {
+			if (email2 != null && email2.length() != 0) {
+				return email1.compareTo(email2);
+			}
+			else {
+				return 1;
+			}
+		}
+		else if (email2 != null && email2.length() != 0) {
+			return -1;
+		}
+
+		String phone1 = this.getPhone(), phone2 = e.getPhone();
+		if (phone1 != null && phone1.length() != 0) {
+			if (phone2 != null && phone2.length() != 0) {
+				return phone1.compareTo(phone2);
+			}
+			else {
+				return 1;
+			}
+		}
+		else if (phone2 != null && phone2.length() != 0) {
+			return -1;
+		}
+
+		int result = this.getName().compareTo(e.getName());
+		if (result == 0) {
+			result = this.getPosition().compareTo(e.getPosition());
+		}
+		return result;
 	}
 }

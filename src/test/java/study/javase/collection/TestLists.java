@@ -95,7 +95,7 @@ public class TestLists {
 //			}
 			List<Employee> tempList = new ArrayList<>(employees);
 			List<Employee> expected = new ArrayList<>(employees);
-			expected.remove(employees.get(i));
+			expected.removeAll(Collections.singletonList(employees.get(i)));
 
 			lists.removeEmployees(tempList, employees.get(i));
 			boolean equal = identityEquals(expected, tempList);
@@ -193,7 +193,7 @@ public class TestLists {
 		Collections.shuffle(expected);
 		int pos = (int) (expected.size() * (Math.random() * 0.6 + 0.2));
 		List<Employee> list1 = new ArrayList<>(expected);
-		List<Employee> list2 = expected.subList(pos, expected.size());
+		List<Employee> list2 = new ArrayList<>(expected.subList(pos, expected.size()));
 
 		expected.retainAll(list2);
 		lists.intersection(list1, list2);
@@ -208,7 +208,7 @@ public class TestLists {
 		Collections.shuffle(expected);
 		int pos = (int) (expected.size() * (Math.random() * 0.6 + 0.2));
 		List<Employee> list1 = new ArrayList<>(expected);
-		List<Employee> list2 = expected.subList(pos, expected.size());
+		List<Employee> list2 = new ArrayList<>(expected.subList(pos, expected.size()));
 
 		expected.removeAll(list2);
 		lists.supplementary(list1, list2);

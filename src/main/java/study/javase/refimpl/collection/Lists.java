@@ -1,6 +1,13 @@
 package study.javase.refimpl.collection;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.function.Predicate;
 
 import study.javase.collection.beans.Employee;
@@ -13,8 +20,22 @@ public class Lists extends study.javase.collection.Lists {
 	 * 注：没有特别要求，只需将所有号码读到一个 List 中即可。
 	 */
 	public List<String> readPhoneNumbers(String file) {
-		// TODO your code goes here
-		return null;
+		List<String> list = new ArrayList<>();
+
+		try {
+			FileInputStream fileInputStream = new FileInputStream(file);
+			try (Scanner scanner = new Scanner(fileInputStream)) {
+				while (scanner.hasNextLine()) {
+					list.add(scanner.nextLine());
+				}
+			}
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		return list;
 	}
 
 	/**
@@ -26,8 +47,9 @@ public class Lists extends study.javase.collection.Lists {
 	 * （考察 ArrayList 的随机访问具有 O(1) 的性能）
 	 */
 	public List<String> readAndSortPhoneNumbers(String file) {
-		// TODO your code goes here
-		return null;
+		List<String> list = this.readPhoneNumbers(file);
+		Collections.sort(list);
+		return list;
 	}
 
 	/**
@@ -45,17 +67,27 @@ public class Lists extends study.javase.collection.Lists {
 	 * （考察 ArrayList 和 LinkedList 的区别）
 	 */
 	public List<String> readPhoneNumbers2(String file) {
-		// TODO your code goes here
-		return null;
+		List<String> list = this.readPhoneNumbers(file);
+		Collections.sort(list, (s1, s2) -> {
+			return s1.substring(0, 3).compareTo(s2.substring(0, 3));
+		});
+		List<String> list2 = new LinkedList<>(list);
+		return list2;
 	}
 
 	/**
 	 * 请从职员列表中移除「所有」与指定 Employee 相等的职员。
 	 * 注：本题和后面的一些题目需要先完成 Employee 类中的 equals 和 hashCode 方法。
-	 * （考察 removeAll() 方法的使用，以及 Employee.equals() 方法的实现）
+	 * （考察通过迭代器删除元素，以及 Employee.equals() 方法的实现）
 	 */
 	public void removeEmployees(List<Employee> employees, Employee employee) {
-		// TODO your code goes here
+		Iterator<Employee> it = employees.iterator();
+		while (it.hasNext()) {
+			Employee e = it.next();
+			if (e.equals(employee)) {
+				it.remove();
+			}
+		}
 	}
 
 	/**
@@ -63,7 +95,7 @@ public class Lists extends study.javase.collection.Lists {
 	 * （考察 List.removeIf(Predicate) 方法的使用）
 	 */
 	public void removeEmployees2(List<Employee> employees, Predicate<Employee> tester) {
-		// TODO your code goes here
+		employees.removeIf(tester);
 	}
 
 	/**
@@ -72,8 +104,17 @@ public class Lists extends study.javase.collection.Lists {
 	 * （考察迭代器的使用，以及通过迭代器删除元素）
 	 */
 	public List<Employee> findEmployees(List<Employee> employees, Predicate<Employee> tester) {
-		// TODO your code goes here
-		return null;
+		List<Employee> newList = new ArrayList<>();
+		Iterator<Employee> it = employees.iterator();
+		while (it.hasNext()) {
+			Employee e = it.next();
+			if (tester.test(e)) {
+				it.remove();
+				newList.add(e);
+			}
+		}
+
+		return newList;
 	}
 
 	/**
@@ -82,18 +123,19 @@ public class Lists extends study.javase.collection.Lists {
 	 * （也可以使用 Stream.sorted(Comparator)）
 	 */
 	public void sortEmployeesBySalary(List<Employee> employees) {
-		// TODO your code goes here
+		Collections.sort(employees, (e1, e2) -> Double.compare(e1.getSalary(), e2.getSalary()));
 	}
 
 	/**
 	 * 有时候既希望对列表排序，又不想改变原列表，因此在排序前需要将原列表复制一份，然后对
 	 * 复制的列表进行排序，最后返回排序后的列表，这样原列表可以维持不变。
 	 * 请按照以上要求对 employees 列表按照薪水（salary）升序排序，并返回排序后的列表。
-	 * （考察 Collection.addAll(Collection)，或 clone() 的使用）
+	 * （考察 Collection.addAll(Collection)，或 List(Collection) 构造方法的使用）
 	 */
 	public List<Employee> sortEmployees(List<Employee> employees) {
-		// TODO your code goes here
-		return null;
+		List<Employee> list2 = new ArrayList<>(employees);
+		this.sortEmployeesBySalary(list2);
+		return list2;
 	}
 
 	/**
@@ -102,12 +144,12 @@ public class Lists extends study.javase.collection.Lists {
 	 * （并集）
 	 */
 	public void union(List<Employee> list1, List<Employee> list2) {
-		// TODO your code goes here
+		list1.addAll(list2);
 	}
 
 	/**
 	 * list1 与 list2 是两个职员列表，请从 list1 中移除那些不存在于 list2 的职员。
-	 * （即仅保留 list1 中同时也存在于 list2 中那些的职员）
+	 * （即仅保留 list1 中那些同时存在于 list2 中的职员）
 	 * （交集）
 	 */
 	public void intersection(List<Employee> list1, List<Employee> list2) {

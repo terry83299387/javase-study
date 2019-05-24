@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -59,17 +60,32 @@ public class TestSets {
 		Set<String> expected = new HashSet<>(phoneNumbers);
 		List<String> expectedList = new ArrayList<>(expected);
 		Collections.sort(expectedList);
-		List<String> tempList = new ArrayList<>(phoneNumbers);
-		List<String> resultList = sets.removeDuplicate(tempList);
+		List<String> resultList = new ArrayList<>(phoneNumbers);
+		sets.removeDuplicate(resultList);
 		Collections.sort(resultList);
 		assertTrue(expectedList.equals(resultList));
 
 		Set<Employee> expected2 = new HashSet<>(employees);
 		List<Employee> expectedList2 = new ArrayList<>(expected2);
 		Collections.sort(expectedList2);
-		List<Employee> tempList2 = new ArrayList<>(employees);
-		List<Employee> resultList2 = sets.removeDuplicate(tempList2);
+		List<Employee> resultList2 = new ArrayList<>(employees);
+		sets.removeDuplicate(resultList2);
 		Collections.sort(resultList2);
+		assertTrue(expectedList2.equals(resultList2));
+	}
+
+	@Test
+	public void testRemoveDuplicate2() {
+		Set<String> expected = new LinkedHashSet<>(phoneNumbers);
+		List<String> expectedList = new ArrayList<>(expected);
+		List<String> resultList = new ArrayList<>(phoneNumbers);
+		sets.removeDuplicate2(resultList);
+		assertTrue(expectedList.equals(resultList));
+
+		Set<Employee> expected2 = new LinkedHashSet<>(employees);
+		List<Employee> expectedList2 = new ArrayList<>(expected2);
+		List<Employee> resultList2 = new ArrayList<>(employees);
+		sets.removeDuplicate2(resultList2);
 		assertTrue(expectedList2.equals(resultList2));
 	}
 
@@ -77,6 +93,7 @@ public class TestSets {
 	public void testRemoveDuplicateAndArrangeOrder() {
 		Set<Employee> expected = new TreeSet<>(employees);
 		List<Employee> expectedList = new ArrayList<>(expected);
+		Collections.reverse(expectedList);
 
 		List<Employee> tempList = new ArrayList<>(employees);
 		List<Employee> resultList = sets.removeDuplicateAndArrangeOrder(tempList);
@@ -87,12 +104,16 @@ public class TestSets {
 	@Test
 	public void testRemoveDuplicateAndArrangeOrder2() {
 		Set<Employee> expected = new TreeSet<>((e1, e2) -> {
-			return 0;
+			int position = e1.getPosition().compareTo(e2.getPosition());
+			if (position == 0) {
+				return Double.compare(e2.getSalary(), e1.getSalary());
+			}
+			return position;
 		});
 		expected.addAll(employees);
 
 		List<Employee> tempList = new ArrayList<>(employees);
-		List<Employee> resultList = sets.removeDuplicateAndArrangeOrder(tempList);
+		List<Employee> resultList = sets.removeDuplicateAndArrangeOrder2(tempList);
 
 		assertEquals(expected.size(), resultList.size());
 
